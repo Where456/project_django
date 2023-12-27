@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Skystore</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <h5 class="my-0 mr-md-auto font-weight-normal">Skystore</h5>
+    <nav class="ms-5">
+        <a class="p-2 btn btn-outline-primary" href="/">Каталог</a>
+        <a class="p-2 btn btn-outline-primary" href="/contacts/">Контакты</a>
+    </nav>
+</div>
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Skystore</h1>
+    <p class="lead">Skystore -
+Добро пожаловать в Skystore - ваш персональный портал в мир инноваций и стиля. Мы рады представить вам наш новый
+        онлайн магазин, где каждый продукт — это история, а каждая покупка — шаг вперёд к лучшему.</p>
+</div>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for product in data %}
+            <div class="col mb-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">$ {{ product.price_per_unit }}</h1>
+                        <img src="/media/{{ product.image }}" style="width: 100%; height: auto;" class="mb-3" />
+
+                        <div class="product-details">
+                            <p class="product-description">{{ product.description }}</p>
+                            <p class="product-category"><strong>Категория:</strong> {{ product.category }}</p>
+                            <p class="product-date"><span>Создано: {{ product.created_at }}</span></p>
+                            <p class="product-date"><span>Изменено: {{ product.updated_at }}</span></p>
+                        </div>
+
+
+                        <button type="button" class="btn btn-lg btn-block btn-outline-primary mt-3">Купить</button>
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                </div><div class="row row-cols-1 row-cols-md-3 g-4">
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+            <div class="col-12 col-md">
+                SkyStore
+                <small class="d-block mb-3 text-muted">&copy; 2023</small>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Категории</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Рассылки</a></li>
+                    <li><a class="text-muted" href="#">Телеграм боты</a></li>
+                    <li><a class="text-muted" href="#">Полезные утилиты</a></li>
+                    <li><a class="text-muted" href="#">Веб-приложения</a></li>
+                    <li><a class="text-muted" href="#">Микросервисы</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Дополнительно</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Мы пишем</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>О нас</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="/contacts/">Контакты</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
