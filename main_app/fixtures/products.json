@@ -1,64 +1,62 @@
 [
   {
-    "model": "main_app.product",
-    "pk": 1,
+    "model": "main_app.productmodel",
     "fields": {
-      "name": "Name",
-      "description": "description",
-      "image": "scottish_fold_kitten.jpg",
-      "category": "category",
+      "name": "Смартфон XYZ",
+      "description": "Описание смартфона XYZ с последними технологиями.",
+      "image": "products/2023-12-27_14.00.53.jpg",
+      "category": "Электроника",
+      "price_per_unit": 1200,
+      "created_at": "2023-12-19",
+      "updated_at": "2023-12-19"
+    }
+  },
+  {
+    "model": "main_app.productmodel",
+    "fields": {
+      "name": "Ноутбук ABC",
+      "description": "Описание ноутбука ABC с высокой производительностью.",
+      "image": "products/2023-12-27_14.00.53.jpg",
+      "category": "Электроника",
+      "price_per_unit": 2500,
+      "created_at": "2023-12-19",
+      "updated_at": "2023-12-19"
+    }
+  },
+  {
+    "model": "main_app.productmodel",
+    "fields": {
+      "name": "Умный домовой прибор",
+      "description": "Описание умного домового прибора для автоматизации.",
+      "image": "products/2023-12-27_14.00.53.jpg",
+      "category": "Технологии",
       "price_per_unit": 500,
       "created_at": "2023-12-19",
       "updated_at": "2023-12-19"
     }
   },
   {
-    "model": "main_app.product",
-    "pk": 2,
+    "model": "main_app.productmodel",
     "fields": {
-      "name": "Minimal Product",
-      "description": "A minimal product",
-      "category": "Minimal Category",
-      "price_per_unit": 10,
-      "created_at": "2023-12-20",
-      "updated_at": "2023-12-20"
+      "name": "Фитнес-трекер Pro",
+      "description": "Описание фитнес-трекера Pro для активного образа жизни.",
+      "image": "products/2023-12-27_14.00.53.jpg",
+      "category": "Спорт и здоровье",
+      "price_per_unit": 150,
+      "created_at": "2023-12-19",
+      "updated_at": "2023-12-19"
     }
   },
   {
-    "model": "main_app.product",
-    "pk": 3,
+    "model": "main_app.productmodel",
     "fields": {
-      "name": "Product with Image",
-      "description": "A product with an image",
-      "category": "Image Category",
-      "price_per_unit": 20,
-      "created_at": "2023-12-20",
-      "updated_at": "2023-12-20",
-      "image": "product_image.jpg"
-    }
-  },
-  {
-    "model": "main_app.product",
-    "pk": 4,
-    "fields": {
-      "name": "Another Product",
-      "description": "Another product description",
-      "category": "Another Category",
+      "name": "Книга 'Путешествие в неизвестность'",
+      "description": "Описание книги 'Путешествие в неизвестность' от известного автора.",
+      "image": "products/2023-12-27_14.00.53.jpg",
+      "category": "Литература",
       "price_per_unit": 30,
-      "created_at": "2023-12-20",
-      "updated_at": "2023-12-20"
-    }
-  },
-  {
-    "model": "main_app.product",
-    "pk": 5,
-    "fields": {
-      "name": "Detailed Product",
-      "description": "A detailed product description with more information.",
-      "category": "Detailed Category",
-      "price_per_unit": 40,
-      "created_at": "2023-12-20",
-      "updated_at": "2023-12-20"
+      "created_at": "2023-12-19",
+      "updated_at": "2023-12-19"
     }
   }
 ]
