@@ -1,0 +1,22 @@
+{% extends 'main_app/base.html' %}
+{% load mediapath_tag %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{% mediapath product.image %}" alt="Product Image" class="img-fluid">
+        </div>
+        <div class="col-md-6">
+            <h2 class="display-4">{{ product.name }}</h2>
+            <p class="lead">{{ product.description }}</p>
+            <p class="lead">Цена: ${{ product.price_per_unit }}</p>
+            <p class="lead">Категория: {{ product.category }}</p>
+            <p class="lead">Дата добавления: {{ product.creation_date }} </p>
+            <a href="{% url 'main_app:product-detail' product.id %}" class="btn btn-lg btn-block btn-outline-primary">Добавить в корзину</a><br>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
