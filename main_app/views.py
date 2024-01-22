@@ -4,10 +4,9 @@ from django.views.generic import ListView, DetailView
 from main_app.models import Product
 
 
-class ProductsListView(ListView):
-    model = Product
-    template_name = 'main_app/product_list.html'
-    context_object_name = 'products'
+def product_list_view(request):
+    products = Product.objects.all()
+    return render(request, 'product_list.html', {'products': products})
 
 
 def contacts(request):
@@ -15,7 +14,7 @@ def contacts(request):
         name = request.POST.get('name')
         email = request.POST.get('email')
         print(f'{name}: {email}')
-    return render(request, 'main_app/contacts.html')
+    return render(request, 'contacts.html')
 
 
 class ProductDetailView(DetailView):

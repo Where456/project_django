@@ -1,4 +1,4 @@
-{% extends 'main_app/base.html' %}
+{% extends 'base.html' %}
 {% load mediapath_tag %}
 
 {% block content %}
@@ -20,7 +20,8 @@
                                 <li><b>Категория: </b>{{product.category}}</li><br>
                                 <li><span>Дата создания карточки: {{product.creation_date}}</span></li>
                             </ul>
-                            <a href="{% url 'main_app:product-detail' product.id %}" class="btn btn-lg btn-block btn-outline-primary">Купить</a><br>
+                            <a href="{% url 'product_detail' product.id %}" class="btn btn-lg btn-block btn-outline-primary">Купить</a><br>
+
                         </div>
                     </div>
                 </div>
