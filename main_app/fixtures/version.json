@@ -1,0 +1,12 @@
+[
+  {
+    "model": "main_app.version",
+    "pk": 1,
+    "fields": {
+      "version_name": "Beta",
+      "version_number": "2.0.0",
+      "current_version": "2.0.0",
+      "product": 1
+    }
+  }
+]

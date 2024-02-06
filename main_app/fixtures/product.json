@@ -1,0 +1,16 @@
+[
+  {
+    "model": "main_app.product",
+    "pk": 1,
+    "fields": {
+      "name": "Смартфон XYZ",
+      "image": "products/2023-12-27_14.00.53.jpg",
+      "description": "Описание смартфона XYZ с последними технологиями.",
+      "category": "Электроника",
+      "creation_date": "2023-12-19",
+      "last_modified_date": "2023-12-19",
+      "price_per_unit": 1200.00
+    }
+  }
+]
+
