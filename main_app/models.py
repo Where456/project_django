@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import ForeignKey
 
 
 class Product(models.Model):
@@ -7,7 +8,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/', verbose_name='изображение', null=True, blank=True)
     category = models.CharField(max_length=100, verbose_name='категория')
     price_per_unit = models.IntegerField(verbose_name='цена за единицу')
-    creation_date = models.DateField(verbose_name='дата создания')
+    creation_date = models.DateField(verbose_name='дата создания', auto_now_add=True)
     last_modified_date = models.DateField(verbose_name='дата последнего изменения')
 
     def __str__(self):
@@ -16,20 +17,7 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
-        ordering = ('name', )
-
-
-class Category(models.Model):
-    name = models.CharField(max_length=100, verbose_name='название')
-    description = models.TextField(verbose_name='описание')
-
-    def __str__(self):
-        return f'{self.name}'
-
-    class Meta:
-        verbose_name = 'категория'
-        verbose_name_plural = 'категории'
-        ordering = ('name', )
+        ordering = ('name',)
 
 
 class Post(models.Model):
@@ -47,4 +35,49 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'сообщение блога'
         verbose_name_plural = 'сообщения блога'
-        ordering = ('title', )
+        ordering = ('title',)
+
+
+class User(models.Model):
+    name = models.CharField(max_length=200, verbose_name='client name')
+    contact_email = models.EmailField()
+    comment = models.TextField(verbose_name='comment', null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True, verbose_name='product id')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True, verbose_name='post id')
+
+
+def __str__(self):
+    return f'{self.name} - {self.category} - {self.price}'
+
+
+class Meta:
+    verbose_name = 'продукт'
+    verbose_name_plural = 'продукты'
+    ordering = ('name',)
+
+
+class Version(models.Model):
+    version_name = models.CharField(max_length=200, verbose_name='version name')
+    version_number = models.CharField(max_length=100, verbose_name='version number', default='1.0.0')
+    current_version = models.CharField(max_length=100, verbose_name='version number', default='1.0.0')
+    product = ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True, verbose_name='product')
+
+    def __str__(self):
+        return f'{self.product.name} - {self.version_name}'
+
+    class Meta:
+        verbose_name = 'версия'
+        verbose_name_plural = 'версии'
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, verbose_name='название')
+    description = models.TextField(verbose_name='описание')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'категория'
+        verbose_name_plural = 'категории'
+        ordering = ('name',)
