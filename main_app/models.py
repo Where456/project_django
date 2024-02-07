@@ -38,24 +38,6 @@ class Post(models.Model):
         ordering = ('title',)
 
 
-class User(models.Model):
-    name = models.CharField(max_length=200, verbose_name='client name')
-    contact_email = models.EmailField()
-    comment = models.TextField(verbose_name='comment', null=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True, verbose_name='product id')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True, verbose_name='post id')
-
-
-def __str__(self):
-    return f'{self.name} - {self.category} - {self.price}'
-
-
-class Meta:
-    verbose_name = 'продукт'
-    verbose_name_plural = 'продукты'
-    ordering = ('name',)
-
-
 class Version(models.Model):
     version_name = models.CharField(max_length=200, verbose_name='version name')
     version_number = models.CharField(max_length=100, verbose_name='version number', default='1.0.0')
