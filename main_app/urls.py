@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import ProductDetailView, contacts, ProductsListView, ProductDeleteView, ProductUpdateView, \
     ProductCreateView, PostListView, PostDetailView, PostCreateView, PostDeleteView, PostUpdateView, VersionDetailView, \
-    VersionCreateView, VersionUpdateView
+    VersionCreateView, VersionUpdateView, restricted_access
 
 urlpatterns = [
     path('', ProductsListView.as_view(), name='product-list'),
@@ -20,5 +20,6 @@ urlpatterns = [
     path('version/<int:version_id>/', VersionDetailView.as_view(), name='version-detail'),
     path('version/form/<int:pk>/', VersionCreateView.as_view(), name='version-form'),
     path('version/edit/<int:pk>/', VersionUpdateView.as_view(), name='version-edit'),
+    path('restricted-access/', restricted_access, name='restricted-access'),
 
 ]

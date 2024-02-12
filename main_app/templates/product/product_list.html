@@ -6,8 +6,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4 d-flex align-items-center justify-content-center mb-4">
-            <a href="/product/form/" class="btn btn-outline-primary btn-lg btn-block">Загрузить новый
-                продукт</a>
+            <a href="{% url 'main:product-form' %}" class="btn btn-outline-primary btn-lg btn-block">Создать продукт</a>
         </div>
     </div>
 </div>
@@ -25,11 +24,11 @@
                         <li><img src="{% mediapath product.image %}" width="300" height="225"/></li>
                         <br>
                         <li>{{ product.description|truncatechars:100 }}</li>
-                        <li><b>Категория: </b>{{product.category}}</li>
+                        <li><b>Категория: </b>{{ product.category }}</li>
                         <br>
-                        <li><span>Дата создания карточки: {{product.creation_date}}</span></li>
+                        <li><span>Дата создания карточки: {{ product.creation_date }}</span></li>
                     </ul>
-                    <a href="/product/<int:product.id>/" class="btn btn-outline-primary btn-lg btn-block">Купить</a><br><br>
+                    <a href="{% url 'main:product-detail' pk=product.id %}" class="btn btn-outline-primary btn-lg btn-block">Купить</a><br><br>
                 </div>
             </div>
         </div>

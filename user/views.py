@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, FormView
 from .forms import CustomUserCreationForm, UserChangeForm
 from .models import CustomUser
 
@@ -29,44 +29,31 @@ class RegisterView(CreateView):
         return response
 
 
-class CustomLoginView(LoginView):
-    template_name = 'registration/login.html'
-    redirect_authenticated_user = False
-
-    def get_success_url(self):
-        return reverse_lazy('main:product-list')
+# class CustomLoginView(LoginView):
+#     template_name = 'registration/login.html'
+#     redirect_authenticated_user = False
+#
+#     def get_success_url(self):
+#         return reverse_lazy('main:product-list')
 
 
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('main:product-list')
 
-
-class PasswordResetView(View):
-    template_name = 'registration/password_form.html'
-
-    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        form = PasswordResetForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data['email']
-            user = get_user_model().objects.get(email=email)
-            password = get_user_model().objects.make_random_password()
-            user.set_password(password)
-            user.save()
-
-            subject = 'Пароль изменен'
-            message = 'Ваш новый пароль: {password}'.format(password=password)
-
-            from_email = user.email
-            send_mail(subject, message, from_email, [user.email])
-
-            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-
-            return HttpResponseRedirect(reverse('password_reset_done'))
-        return render(request, self.template_name, {'form': form})
+        return super().post(request, *args, **kwargs)
 
 
-@login_required
+class UserPasswordResetView(FormView):
+    template_name = 'registration/password_form.html'
+    form_class = PasswordResetForm
+    success_url = reverse_lazy('user:password_reset_done')
+
+    def form_valid(self, form):
+        form.save(request=self.request)
+        return super().form_valid(form)
+
+
 class UserPasswordResetDoneView(PasswordResetDoneView):
     model = CustomUser
     form_class = CustomUserCreationForm
@@ -74,17 +61,15 @@ class UserPasswordResetDoneView(PasswordResetDoneView):
     success_url = reverse_lazy('user:password_reset_done')
 
 
-@login_required
 class UserPasswordResetConfirmView(PasswordResetConfirmView):
     model = CustomUser
     form_class = CustomUserCreationForm
     template_name = 'registration/confirm_password.html'
-    success_url = reverse_lazy('user:password_reset_confirm')
+    success_url = reverse_lazy('password_reset_confirm')
 
 
-@login_required
 class UserPasswordResetCompleteView(PasswordResetCompleteView):
     model = CustomUser
     form_class = CustomUserCreationForm
     template_name = 'registration/change_password.html'
-    success_url = reverse_lazy('user:password_reset_done')
+    success_url = reverse_lazy('password_reset_done')

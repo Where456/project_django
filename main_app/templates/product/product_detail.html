@@ -21,19 +21,19 @@
 
             {% if version  %}
                 <p class="lead">Текущая версия: {{ version.version_number }}</p>
-                <a href="{% url 'version-detail' version.id %}" class="btn btn-primary btn-lg btn-block">Посмотреть версию продукта</a>
+                <a href="{% url 'main:version-detail' version.id %}" class="btn btn-primary btn-lg btn-block">Посмотреть версию продукта</a>
             {% else %}
-                <a href="{% url 'version-form' pk=product.pk %}" class="btn btn-primary btn-lg btn-block">Добавить версию продукта</a>
+                <a href="{% url 'main:version-form' pk=product.pk %}" class="btn btn-primary btn-lg btn-block">Добавить версию продукта</a>
             {% endif %}
 
             <div class="mt-4">
-                <a href="{% url 'product-detail' product.id %}" class="btn btn-secondary btn-lg btn-block">Добавить в корзину</a>
+                <a href="{% url 'main:product-detail' product.id %}" class="btn btn-secondary btn-lg btn-block">Добавить в корзину</a>
             </div>
             <div class="mt-2">
-                <a href="{% url 'product-delete' product.pk %}" class="btn btn-secondary btn-lg btn-block">Удалить</a>
+                <a href="{% url 'main:product-delete' product.pk %}" class="btn btn-secondary btn-lg btn-block">Удалить</a>
             </div>
             <div class="mt-2">
-                <a href="{% url 'product-edit' product.pk %}" class="btn btn-secondary btn-lg btn-block">Изменить</a>
+                <a href="{% url 'main:product-edit' product.pk %}" class="btn btn-secondary btn-lg btn-block">Изменить</a>
             </div>
         </div>
     </div>
