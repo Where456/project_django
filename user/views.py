@@ -1,16 +1,12 @@
-from django.contrib.auth import login, get_user_model
-from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.contrib.auth import login
 from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.views import LoginView, PasswordResetDoneView, PasswordResetConfirmView, \
+from django.contrib.auth.views import PasswordResetDoneView, PasswordResetConfirmView, \
     PasswordResetCompleteView, LogoutView
 from django.core.mail import send_mail
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
-from django.utils.decorators import method_decorator
-from django.views import View
-from django.views.generic import CreateView, UpdateView, FormView
-from .forms import CustomUserCreationForm, UserChangeForm
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, FormView
+from .forms import CustomUserCreationForm
 from .models import CustomUser
 
 
@@ -29,14 +25,6 @@ class RegisterView(CreateView):
         return response
 
 
-# class CustomLoginView(LoginView):
-#     template_name = 'registration/login.html'
-#     redirect_authenticated_user = False
-#
-#     def get_success_url(self):
-#         return reverse_lazy('main:product-list')
-
-
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('main:product-list')
 
@@ -50,7 +38,13 @@ class UserPasswordResetView(FormView):
     success_url = reverse_lazy('user:password_reset_done')
 
     def form_valid(self, form):
-        form.save(request=self.request)
+        new_user = form.save()
+        send_mail(
+            subject='',
+            message=' Bbl 3aperwctpupoBanncb Ha Hawen natopMe, A06po noxanobatb!',
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[new_user.email]
+        )
         return super().form_valid(form)
 
 
