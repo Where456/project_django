@@ -5,6 +5,7 @@ from django.contrib.auth.views import PasswordResetDoneView, PasswordResetConfir
     PasswordResetCompleteView, LogoutView
 from django.core.mail import send_mail
 from django.urls import reverse_lazy
+from django.utils.crypto import get_random_string
 from django.views.generic import CreateView, FormView
 from .forms import CustomUserCreationForm
 from .models import CustomUser
@@ -18,7 +19,7 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        user = form.save()
+        user = form.save(commit=True)
 
         login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
 
@@ -38,13 +39,20 @@ class UserPasswordResetView(FormView):
     success_url = reverse_lazy('user:password_reset_done')
 
     def form_valid(self, form):
-        new_user = form.save()
+        email = form.cleaned_data['email']
+        new_password = get_random_string(length=12)
+
+        user = CustomUser.objects.get(email=email)
+        user.set_password(new_password)
+        user.save()
+
         send_mail(
-            subject='',
-            message=' Bbl 3aperwctpupoBanncb Ha Hawen natopMe, A06po noxanobatb!',
+            subject='Password Reset Request',
+            message=f'Your new password is: {new_password}',
             from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[new_user.email]
+            recipient_list=[email]
         )
+
         return super().form_valid(form)
 
 

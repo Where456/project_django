@@ -17,7 +17,8 @@ class ProductsListView(ListView):
     template_name = 'product/product_list.html'
     context_object_name = 'products'
 
-@method_decorator(login_required, name='dispatch')
+
+@method_decorator(login_required(login_url=reverse_lazy('user:login')), name='dispatch')
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'product/product_detail.html'
@@ -45,7 +46,7 @@ def contacts(request):
     return render(request, 'contacts.html')
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url=reverse_lazy('user:login')), name='dispatch')
 @method_decorator(csrf_exempt, name='dispatch')
 class ProductCreateView(CreateView):
     model = Product
@@ -62,7 +63,7 @@ class ProductCreateView(CreateView):
         return super().form_valid(form)
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url=reverse_lazy('user:login')), name='dispatch')
 class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductUpdateForm
@@ -78,7 +79,7 @@ class ProductDeleteView(DeleteView):
     success_url = reverse_lazy('product-list')
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url=reverse_lazy('user:login')), name='dispatch')
 class PostDetailView(DetailView):
     model = Post
     template_name = 'post/post_detail.html'
@@ -102,7 +103,7 @@ class PostListView(ListView):
         return queryset
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url=reverse_lazy('user:login')), name='dispatch')
 class PostCreateView(CreateView):
     model = Post
     form_class = PostCreateForm
@@ -122,7 +123,7 @@ class PostCreateView(CreateView):
         return super().form_valid(form)
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url=reverse_lazy('user:login')), name='dispatch')
 class PostUpdateView(UpdateView):
     model = Post
     form_class = PostUpdateForm
@@ -132,7 +133,7 @@ class PostUpdateView(UpdateView):
         return reverse('post-detail', kwargs={'pk': self.object.pk})
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url=reverse_lazy('user:login')), name='dispatch')
 class PostDeleteView(DeleteView):
     model = Post
     template_name = 'post/post_confirm_delete.html'
@@ -144,7 +145,7 @@ class PostDeleteView(DeleteView):
         return context
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url=reverse_lazy('user:login')), name='dispatch')
 class VersionDetailView(DetailView):
     model = Version
     template_name = 'version/version_detail.html'
@@ -155,7 +156,7 @@ class VersionDetailView(DetailView):
         return Version.objects.get(id=version_id)
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url=reverse_lazy('user:login')), name='dispatch')
 class VersionCreateView(CreateView):
     model = Version
     form_class = VersionCreateForm
