@@ -9,8 +9,9 @@
       "category": "Электроника",
       "creation_date": "2023-12-19",
       "last_modified_date": "2023-12-19",
-      "price_per_unit": 1200.00
+      "price_per_unit": 1200.00,
+      "owner_id": 1,
+      "is_published": true
     }
   }
 ]
-

@@ -9,5 +9,5 @@ class RedirectToLoginOn404Middleware:
     def __call__(self, request):
         response = self.get_response(request)
         if response.status_code == 404 and not request.user.is_authenticated:
-            return HttpResponseRedirect(reverse('main:restricted-access'))  # Замените 'user:login' на ваш URL для страницы входа
+            return HttpResponseRedirect(reverse('main:restricted-access'))
         return response

@@ -35,6 +35,11 @@ class ProductCreateForm(ModelForm):
 
         return description
 
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.owner = user
+        return super().form_valid(form)
+
 
 class ProductUpdateForm(ModelForm):
     category = forms.ModelChoiceField(queryset=Category.objects.all(),
