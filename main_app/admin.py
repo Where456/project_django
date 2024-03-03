@@ -7,10 +7,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'category', 'price_per_unit']
-    # list_filter = ['category', 'is_published']
-    search_fields = ['name', 'category']
-    # list_editable = ['is_published']
+    list_display = ('pk', 'name', 'price_per_unit', 'category', 'is_published',)
+    list_filter = ('category', 'is_published',)
+    search_fields = ('name', 'description',)
 
 
 admin.site.register(Category, CategoryAdmin)

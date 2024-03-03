@@ -3,7 +3,6 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
-    id = models.AutoField(primary_key=True)
     username = None
     email = models.EmailField(verbose_name='почта', unique=True)
     avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
@@ -12,3 +11,5 @@ class CustomUser(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
+

@@ -1,4 +1,5 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
@@ -52,9 +53,10 @@ class ProductCreateView(CreateView):
     model = Product
     form_class = ProductCreateForm
     template_name = 'product/product_form.html'
-    success_url = reverse_lazy('product-list')
+    success_url = reverse_lazy('main_app:product-list')
 
     def form_valid(self, form):
+        form.instance.owner = self.request.user
         form.instance.is_banned = any(word in form.cleaned_data['name'].lower() or
                                       word in form.cleaned_data['description'].lower()
                                       for word in ['casino', 'cryptocurrency', 'crypto', 'exchange', 'cheap',
@@ -69,14 +71,24 @@ class ProductUpdateView(UpdateView):
     form_class = ProductUpdateForm
     template_name = 'product/product_form.html'
 
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if self.object.owner != self.request.user and not self.request.user.is_staff:
+            raise Http404
+        return self.object
+
     def get_success_url(self):
-        return reverse('product-detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('main_app:product-detail', kwargs={'pk': self.object.pk})
+
+    def test_func(self):
+        product = self.get_object()
+        return self.request.user == product.owner
 
 
 class ProductDeleteView(DeleteView):
     model = Product
     template_name = 'product/product_confirm_delete.html'
-    success_url = reverse_lazy('product-list')
+    success_url = reverse_lazy('main_app:product-list')
 
 
 @method_decorator(login_required(login_url=reverse_lazy('user:login')), name='dispatch')
@@ -107,7 +119,7 @@ class PostListView(ListView):
 class PostCreateView(CreateView):
     model = Post
     form_class = PostCreateForm
-    success_url = reverse_lazy('post-list')
+    success_url = reverse_lazy('main_app:post-list')
     template_name = 'post/post_form.html'
 
     def form_valid(self, form):
@@ -130,14 +142,14 @@ class PostUpdateView(UpdateView):
     template_name = 'post/post_form.html'
 
     def get_success_url(self):
-        return reverse('post-detail', kwargs={'pk': self.object.pk})
+        return reverse('main_app:post-detail', kwargs={'pk': self.object.pk})
 
 
 @method_decorator(login_required(login_url=reverse_lazy('user:login')), name='dispatch')
 class PostDeleteView(DeleteView):
     model = Post
     template_name = 'post/post_confirm_delete.html'
-    success_url = reverse_lazy('post-list')
+    success_url = reverse_lazy('main_app:post-list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -168,7 +180,7 @@ class VersionCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('product-list')
+        return reverse_lazy('main_app:product-list')
 
 
 class VersionUpdateView(UpdateView):

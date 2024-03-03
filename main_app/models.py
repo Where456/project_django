@@ -22,6 +22,11 @@ class Product(models.Model):
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
         ordering = ('name',)
+        permissions = [
+            ("cancel_product_publication", "Can cancel product publication"),
+            ("change_product_description", "Can change product description"),
+            ("change_product_category", "Can change product category"),
+        ]
 
 
 class Post(models.Model):
