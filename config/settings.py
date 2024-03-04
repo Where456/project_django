@@ -158,7 +158,7 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
-CACHE_ENABLED = os.getenv("CACHE_ENABLED") == 'True'
+CACHE_ENABLED = os.getenv("CACHE_ENABLED")
 
 CACHES = {
     "default": {
